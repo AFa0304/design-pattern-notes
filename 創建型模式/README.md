@@ -126,3 +126,44 @@ example:
     console.log(myIPhone.turnOn()) // 手機開機
 ```
 在此範例中，我們有一個iPhone作為prototype，並使用了原生JS的Object.create去創建了另一個物件，並定義了新的屬性owner。
+
+<br/>
+
+## 單例模式(Singleton Pattern)
+example:
+```js
+    class FrontEnd_Engineer{
+        constructor(name){
+            if(FrontEnd_Engineer.exists){
+                return FrontEnd_Engineer.instance
+            }
+            this._name = name
+            FrontEnd_Engineer.instance = this
+            FrontEnd_Engineer.exists = true
+            return this
+        }
+        getName(){
+            return this._name
+        }
+        setName(name){
+            this._name = name
+        }
+    }
+
+    const AFa = new FrontEnd_Engineer("AFa")
+    console.log(AFa.getName()) // AFa
+
+    const Alan = new FrontEnd_Engineer("Alan")
+    console.log(Alan.getName()) // AFa
+
+    AFa.setName("Tom")
+    console.log(AFa.getName()) // Tom
+    console.log(Alan.getName()) // Tom
+```
+**單例模式是一種特別的設計模式，該類別只能存在唯一的實例；**
+**邏輯大概是如果該類別沒有實例物件的話，則會創建一個新的實例回傳，**
+**若該實例物件已經存在，則會回傳該實例物件的參考。**
+
+在這個範例中，我們有一個名叫FrontEnd_Engineer的類別，
+首先我們先使用new建立了一個物件叫AFa，這時因為沒有任何實例物件所以AFa就被創建出來了；
+而我們第二次調用new創建一個物件叫Alan時並沒有物件被實例，取而代之的是回傳了原本已經被實例物件AFa的參考。
