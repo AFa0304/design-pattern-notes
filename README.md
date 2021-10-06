@@ -35,8 +35,5 @@
     * 策略模式(Strategy Pattern)
     * 模板方法(Template Pattern)
   
-  
-  
-  
-  
+<br/><br/><br/>
 參考資料 - [Ivan Chiou - 【翻譯】JavaScript 設計模式](https://wyattkidd.medium.com/%E7%BF%BB%E8%AD%AF-javascript-%E8%A8%AD%E8%A8%88%E6%A8%A1%E5%BC%8F-fca4e2e16752)

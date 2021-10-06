@@ -4,9 +4,10 @@
 ### 主要有這四種設計模式
 * 建構子模式(Constructor Pattern)
 * 工廠模式(Factory Pattern)
-* 原型模式(Prototype Pattern) 
+* 原型模式(Prototype Pattern)
 * 單例模式(Singleton Pattern)
-
+  
+<br/>
 
 ## 建構子模式(Constructor Pattern)
 example:
@@ -48,7 +49,7 @@ console.log(AFa.getDetails()) // AFa 會寫 JavaScript 程式
 接著用new給予個別的屬性值當作參數，實例化了一個會寫Javascript且名為AFa的Programmer。
   
   
-
+<br/>
 
 ## 工廠模式(Factory Pattern)
 example:
@@ -103,3 +104,25 @@ example:
 
 例子中我們創建了一個工廠類別"BallFactory"，
 它有一個createBall的method能夠根據傳入不同的type來建立對應的ball物件。
+
+
+
+## 原型模式(Prototype Pattern)
+example:
+```js
+    const iPhone = {
+        brand: "apple",
+        turnOn(){
+            return "手機開機"
+        },
+        turnOff(){
+            return "手機關機"
+        }
+    }
+
+    const myIPhone = Object.create(iPhone,{owner:{value:"AFa"}})
+    console.log(myIPhone.__proto__ === iPhone) // true
+    console.log(myIPhone.owner) // AFa
+    console.log(myIPhone.turnOn()) // 手機開機
+```
+在此範例中，我們有一個iPhone作為prototype，並使用了原生JS的Object.create去創建了另一個物件，並定義了新的屬性owner。
