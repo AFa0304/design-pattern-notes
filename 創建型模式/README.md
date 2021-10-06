@@ -1,6 +1,4 @@
 # 創建型模式
-(在建構時做變化)
-
 顧名思義，這種類型主要是在處理物件在創建時的機制，基本上是通過控制創建時的流程來解決問題。
 
 ### 主要有這四種設計模式
@@ -10,7 +8,7 @@
 * 單例模式(Singleton Pattern)
 
 
-## 建構子模式(Constructor Pattern)
+#### 建構子模式(Constructor Pattern)
 ```js
 // 傳統JS寫法
 function Programmer(name,programming_language){

@@ -1,4 +1,4 @@
-# 設計模式整理
+# JS設計模式(Design Pattern)
 
 ## 設計模式的分類
 設計模式通常被分類成三個主要的類型
@@ -8,6 +8,7 @@
     * 工廠模式(Factory Pattern)
     * 原型模式(ProtoTyp Pattern)
     * 單例模式(Singleton Pattern)
+
 * 結構型模式
     * 配接器模式(Adapter Pattern)
     * 組合模式(Composite Pattern)
@@ -15,6 +16,7 @@
     * 表象模式(Facade Pattern)
     * 享元模式(Flyweight Pattern)
     * 代理人模式(Proxy Pattern)
+
 * 行為型模式
     * 責任鏈模式(Chain of Responsibility Pattern)
     * 命令模式(Command Pattern)
