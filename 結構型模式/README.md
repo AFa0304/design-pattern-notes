@@ -91,8 +91,8 @@ OldRobot有一個operations的方法來控制Robot的前進及後退，
 ## 組合模式(Composite Pattern)
 example:
 ```js
-    // 基礎元件Component
-    class Component {
+// 基礎元件Component
+class Component {
     constructor(name) {
         this._name = name;
     }
