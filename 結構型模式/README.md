@@ -14,70 +14,70 @@
 ## 配接器模式(Adapter Pattern)
 example:
 ```js
-    // 舊有的interface
-    class OldRobot{
-        constructor(){
-            this.location = 0
-            this.operations = function(distance,operation){
-                switch(operation){
-                    case "forward":
-                        return this.location += distance
-                    case "back":
-                        return this.location -= distance
-                }
-            }
-            this.getLocation = function(){
-                return this.location
+// 舊有的interface
+class OldRobot{
+    constructor(){
+        this.location = 0
+        this.operations = function(distance,operation){
+            switch(operation){
+                case "forward":
+                    return this.location += distance
+                case "back":
+                    return this.location -= distance
             }
         }
-    }
-    // 新的interface
-    class NewRobot{
-        constructor(){
-            this.location = 0
-            this.forward = function(distance){
-                this.location += distance
-            }
-            this.back = function(distance){
-                this.location -= distance
-            }
-            this.getLocation = function(){
-                return this.location
-            }
+        this.getLocation = function(){
+            return this.location
         }
     }
-    // 配接器
-    class RobotAdapter{
-        constructor(){
-            const newRobot = new NewRobot()
-            this.operations = function(distance,operation){
-                switch(operation){
-                    case "forward":
-                        return newRobot.forward(distance)
-                    case "back":
-                        return newRobot.back(distance)
-                }
-            }
-            this.getLocation = function(){
-              return newRobot.getLocation()
-            }
+}
+// 新的interface
+class NewRobot{
+    constructor(){
+        this.location = 0
+        this.forward = function(distance){
+            this.location += distance
+        }
+        this.back = function(distance){
+            this.location -= distance
+        }
+        this.getLocation = function(){
+            return this.location
         }
     }
-    // 舊interface的使用
-    const oldRobot = new OldRobot()
-    oldRobot.operations(5,"forward")
-    oldRobot.operations(3,"back")
-    console.log(oldRobot.getLocation()) // 2
-    // 新interface的使用
-    const newRobot = new NewRobot()
-    newRobot.forward(10)
-    newRobot.back(5)
-    console.log(newRobot.getLocation()) // 5
-    // 配接器的使用
-    const robotAdapter = new RobotAdapter()
-    robotAdapter.operations(2,"forward")
-    robotAdapter.operations(1,"back")
-    console.log(robotAdapter.getLocation()) // 1
+}
+// 配接器
+class RobotAdapter{
+    constructor(){
+        const newRobot = new NewRobot()
+        this.operations = function(distance,operation){
+            switch(operation){
+                case "forward":
+                    return newRobot.forward(distance)
+                case "back":
+                    return newRobot.back(distance)
+            }
+        }
+        this.getLocation = function(){
+            return newRobot.getLocation()
+        }
+    }
+}
+// 舊interface的使用
+const oldRobot = new OldRobot()
+oldRobot.operations(5,"forward")
+oldRobot.operations(3,"back")
+console.log(oldRobot.getLocation()) // 2
+// 新interface的使用
+const newRobot = new NewRobot()
+newRobot.forward(10)
+newRobot.back(5)
+console.log(newRobot.getLocation()) // 5
+// 配接器的使用
+const robotAdapter = new RobotAdapter()
+robotAdapter.operations(2,"forward")
+robotAdapter.operations(1,"back")
+console.log(robotAdapter.getLocation()) // 1
 ```
 **這種模式用於新舊API共用要相容時使用，通常被用於新開發或程式碼重構。**  
 上面例子中我們有一個名為OldRobot的舊類別，及一個叫NewRobot的新類別；  

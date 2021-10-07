@@ -54,50 +54,50 @@ console.log(AFa.getDetails()) // AFa 會寫 JavaScript 程式
 ## 工廠模式(Factory Pattern)
 example:
 ```js
-    class BallFactory{
-        constructor(){
-            this.createBall = function(type){
-                let ball
-                if(type==="football" || type==="soccer"){
-                    ball = new Football()
-                }else if(type === "basketball"){
-                    ball = new Basketball()
-                }
-                ball.roll = function(){
-                    return `這顆 ${this._type} 正在滾動`
-                }
-
-                return ball
+class BallFactory{
+    constructor(){
+        this.createBall = function(type){
+            let ball
+            if(type==="football" || type==="soccer"){
+                ball = new Football()
+            }else if(type === "basketball"){
+                ball = new Basketball()
             }
+            ball.roll = function(){
+                return `這顆 ${this._type} 正在滾動`
+            }
+
+            return ball
         }
     }
+}
 
-    class Football{
-        constructor(){
-            this._type = "足球"
-            this.kick = function(){
-                return "你踢了這顆足球..."
-            }
+class Football{
+    constructor(){
+        this._type = "足球"
+        this.kick = function(){
+            return "你踢了這顆足球..."
         }
     }
+}
 
-    class Basketball{
-        constructor(){
-            this._type = "籃球"
-            this.shoot = function(){
-                return "你投出了這顆籃球..."
-            }
+class Basketball{
+    constructor(){
+        this._type = "籃球"
+        this.shoot = function(){
+            return "你投出了這顆籃球..."
         }
     }
+}
 
-    const factory = new BallFactory()
-    const football = factory.createBall("football")
-    const basketball = factory.createBall("basketball")
+const factory = new BallFactory()
+const football = factory.createBall("football")
+const basketball = factory.createBall("basketball")
 
-    console.log(football.roll()) // 這顆 足球 正在滾動
-    console.log(football.kick()) // 你踢了這顆足球...
-    console.log(basketball.roll()) // 這顆 籃球 正在滾動"
-    console.log(basketball.shoot()) // 你投出了這顆籃球...
+console.log(football.roll()) // 這顆 足球 正在滾動
+console.log(football.kick()) // 你踢了這顆足球...
+console.log(basketball.roll()) // 這顆 籃球 正在滾動"
+console.log(basketball.shoot()) // 你投出了這顆籃球...
 ```
 工廠模式是另一種以類別為基底的設計模式，
 **這種模式通常運用在需要同時管理或操作多個有相似特性卻仍不同的物件集合**，
@@ -110,20 +110,20 @@ example:
 ## 原型模式(Prototype Pattern)
 example:
 ```js
-    const iPhone = {
-        brand: "apple",
-        turnOn(){
-            return "手機開機"
-        },
-        turnOff(){
-            return "手機關機"
-        }
+const iPhone = {
+    brand: "apple",
+    turnOn(){
+        return "手機開機"
+    },
+    turnOff(){
+        return "手機關機"
     }
+}
 
-    const myIPhone = Object.create(iPhone,{owner:{value:"AFa"}})
-    console.log(myIPhone.__proto__ === iPhone) // true
-    console.log(myIPhone.owner) // AFa
-    console.log(myIPhone.turnOn()) // 手機開機
+const myIPhone = Object.create(iPhone,{owner:{value:"AFa"}})
+console.log(myIPhone.__proto__ === iPhone) // true
+console.log(myIPhone.owner) // AFa
+console.log(myIPhone.turnOn()) // 手機開機
 ```
 在此範例中，我們有一個iPhone作為prototype，並使用了原生JS的Object.create去創建了另一個物件，並定義了新的屬性owner。
 
@@ -132,33 +132,33 @@ example:
 ## 單例模式(Singleton Pattern)
 example:
 ```js
-    class FrontEnd_Engineer{
-        constructor(name){
-            if(FrontEnd_Engineer.exists){
-                return FrontEnd_Engineer.instance
-            }
-            this._name = name
-            FrontEnd_Engineer.instance = this
-            FrontEnd_Engineer.exists = true
-            return this
+class FrontEnd_Engineer{
+    constructor(name){
+        if(FrontEnd_Engineer.exists){
+            return FrontEnd_Engineer.instance
         }
-        getName(){
-            return this._name
-        }
-        setName(name){
-            this._name = name
-        }
+        this._name = name
+        FrontEnd_Engineer.instance = this
+        FrontEnd_Engineer.exists = true
+        return this
     }
+    getName(){
+        return this._name
+    }
+    setName(name){
+        this._name = name
+    }
+}
 
-    const AFa = new FrontEnd_Engineer("AFa")
-    console.log(AFa.getName()) // AFa
+const AFa = new FrontEnd_Engineer("AFa")
+console.log(AFa.getName()) // AFa
 
-    const Alan = new FrontEnd_Engineer("Alan")
-    console.log(Alan.getName()) // AFa
+const Alan = new FrontEnd_Engineer("Alan")
+console.log(Alan.getName()) // AFa
 
-    AFa.setName("Tom")
-    console.log(AFa.getName()) // Tom
-    console.log(Alan.getName()) // Tom
+AFa.setName("Tom")
+console.log(AFa.getName()) // Tom
+console.log(Alan.getName()) // Tom
 ```
 **單例模式是一種特別的設計模式，該類別只能存在唯一的實例；**  
 **邏輯大概是如果該類別沒有實例物件的話，則會創建一個新的實例回傳，**  
