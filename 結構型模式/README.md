@@ -85,3 +85,112 @@ OldRobot有一個operations的方法來控制Robot的前進及後退，
 但到了NewRobot卻是把前進及後退分為兩個方法，在這情況下配接器類別RobotAdapter的功用就誕生了，  
 它包裝了NewRobot並增加了operations作為公開的API，而operations裡面是使用NewRobot的前進及後退的方法；  
 這讓工程師能夠在不影響舊有使用的前提上，繼續開發NewRobot的程式。
+
+<br/>
+
+## 組合模式(Composite Pattern)
+example:
+```js
+    // 基礎元件Component
+    class Component {
+    constructor(name) {
+        this._name = name;
+    }
+    getNodeName() {
+            return this._name;
+        }
+    // 需要覆寫的抽象方法
+    getType() {}
+    addChild(component) {}
+    removeChildByName(componentName) {}
+    removeChildByIndex(index) {}
+    getChildByName(componentName) {}
+    getChildByIndex(index) {}
+    noOfChildren() {}
+    // log樹狀結構
+    static logTreeStructure(root) {
+        let treeStructure = '';
+
+        function traverse(node, indent = 0) {
+            treeStructure += `${'--'.repeat(indent)}${node.getNodeName()}\n`;
+            indent++;
+            for (let i = 0, length = node.noOfChildren(); i < length; i++) {
+                traverse(node.getChildByIndex(i), indent);
+            }
+        }
+        traverse(root);
+        return treeStructure;
+    }
+}
+// 無子元件的Leaf類別
+class Leaf extends Component {
+    constructor(name) {
+        super(name);
+        this._type = 'Leaf Node';
+    }
+    getType() {
+        return this._type;
+    }
+    noOfChildren() {
+        return 0;
+    }
+}
+// 能夠有子元件的Composite類別
+class Composite extends Component {
+    constructor(name) {
+        super(name);
+        this._type = 'Composite Node';
+        this._children = [];
+    }
+    getType() {
+        return this._type;
+    }
+    addChild(component) {
+        this._children = [...this._children, component];
+    }
+    removeChildByName(componentName) {
+        this._children = [...this._children].filter(component => component.getNodeName() !== componentName);
+    }
+    removeChildByIndex(index) {
+        this._children = [...this._children.slice(0, index), ...this._children.slice(index + 1)];
+    }
+    getChildByName(componentName) {
+        return this._children.find(component => component.name === componentName);
+    }
+    getChildByIndex(index) {
+        return this._children[index];
+    }
+    noOfChildren() {
+        return this._children.length;
+    }
+}
+// 使用
+const tree = new Composite('root'); 
+tree.addChild(new Leaf('left'));
+const right = new Composite('right');
+tree.addChild(right);
+right.addChild(new Leaf('right-left'));
+const rightMid = new Composite('right-middle');
+right.addChild(rightMid);
+right.addChild(new Leaf('right-right'));
+rightMid.addChild(new Leaf('left-end'));
+rightMid.addChild(new Leaf('right-end'));
+// log樹狀結構
+console.log(Component.logTreeStructure(tree));
+/*
+root
+--left
+--right
+----right-left
+----right-middle
+------left-end
+------right-end
+----right-right
+*/
+```
+這是一種結構型設計模式，使用像是**樹狀結構**一樣的方式來組合這些物件，  
+在這種模式下，**每一個節點可以是一個獨立物件，也可以是一個物件的組合**，  
+
+這邊直接拿參考的範例來看，範例中創建了一個名為Component的基礎class，這個基礎類別實作了需要的通用功能及抽象功能，另外也有一個靜態方法去遍歷該類別底下的所有子類別組合的樹狀結構。  
+另外範例中也創建了兩個子類別去繼承Component，一個是沒有子元件的Left，一個是可以有子元件且還有一些Method，能夠去處理增加、刪除及查詢子元件的功能，  
+在這範例中這兩個子元件也被用來創建樹的結構。
