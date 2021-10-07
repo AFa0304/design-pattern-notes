@@ -194,3 +194,55 @@ root
 這邊直接拿參考的範例來看，範例中創建了一個名為Component的基礎class，這個基礎類別實作了需要的通用功能及抽象功能，另外也有一個靜態方法去遍歷該類別底下的所有子類別組合的樹狀結構。  
 另外範例中也創建了兩個子類別去繼承Component，一個是沒有子元件的Left，一個是可以有子元件且還有一些Method，能夠去處理增加、刪除及查詢子元件的功能，  
 在這範例中這兩個子元件也被用來創建樹的結構。
+
+<br/>
+
+## 裝飾者模式(Decorator Pattern)
+example:
+```js
+class Man{
+    constructor(name,charisma){
+        this._name = name
+        this.charisma = charisma
+    }
+    getDetail(){
+        return `一位叫做${this._name}的男性"`
+    }
+}
+// 一般男性
+function normalMan(man){
+    man.isNormalMan = true
+    man.sleep = function(){
+        return `${man.getDetail()} 睡著了。`
+    }
+    return man
+}
+// 完美的高富帥
+function totalPackage(man){
+    man.isTotalPackage = true
+    man.charisma += 80
+    man.throwParty = function(){
+        return `${man.getDetail()} 參加了派對。`
+    }
+    return man
+}
+
+const AFa = normalMan(new Man("AFa",15))
+console.log(AFa.isNormalMan) // true
+console.log(AFa.charisma) // 15
+console.log(AFa.sleep()) //一位叫做AFa的男性" 睡著了。
+
+const Jeff = totalPackage(new Man("Jeff",10))
+console.log(Jeff.isTotalPackage)
+console.log(Jeff.charisma) // 90
+console.log(Jeff.throwParty()) //一位叫做Jeff的男性" 參加了派對。
+```
+這種模式著重在對已存在的類別新增行為或功能，是使用子類別的另一種替代方案。  
+
+Decorator Pattern的特性很容易用JavaScript去達成，因為JavasScript允許動態對物件增加方法或屬性。  
+
+在這個範例中我們新增了一個男性Man的類別，另外也創建了兩個修飾功能的類別-一般男normalMan及高富帥totalPackage，  
+它們接受Man物件並回傳"裝飾過"的Man物件，兩個類別分別新增了一個屬性及功能，另外totalPackage類別也編輯了已存在的屬性值。
+
+<br/>
+
