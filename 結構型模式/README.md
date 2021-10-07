@@ -79,9 +79,9 @@ example:
     robotAdapter.operations(1,"back")
     console.log(robotAdapter.getLocation()) // 1
 ```
-**這種模式用於新舊API共用要相容時使用，通常被用於新開發或程式碼重構。**
-上面例子中我們有一個名為OldRobot的舊類別，及一個叫NewRobot的新類別；
-OldRobot有一個operations的方法來控制Robot的前進及後退，
-但到了NewRobot卻是把前進及後退分為兩個方法，在這情況下配接器類別RobotAdapter的功用就誕生了，
-它包裝了NewRobot並增加了operations作為公開的API，而operations裡面是使用NewRobot的前進及後退的方法；
+**這種模式用於新舊API共用要相容時使用，通常被用於新開發或程式碼重構。**  
+上面例子中我們有一個名為OldRobot的舊類別，及一個叫NewRobot的新類別；  
+OldRobot有一個operations的方法來控制Robot的前進及後退，  
+但到了NewRobot卻是把前進及後退分為兩個方法，在這情況下配接器類別RobotAdapter的功用就誕生了，  
+它包裝了NewRobot並增加了operations作為公開的API，而operations裡面是使用NewRobot的前進及後退的方法；  
 這讓工程師能夠在不影響舊有使用的前提上，繼續開發NewRobot的程式。
