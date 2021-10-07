@@ -206,7 +206,7 @@ class Man{
         this.charisma = charisma
     }
     getDetail(){
-        return `一位叫做${this._name}的男性"`
+        return `一位叫做${this._name}的男性`
     }
 }
 // 一般男性
@@ -230,12 +230,12 @@ function totalPackage(man){
 const AFa = normalMan(new Man("AFa",15))
 console.log(AFa.isNormalMan) // true
 console.log(AFa.charisma) // 15
-console.log(AFa.sleep()) //一位叫做AFa的男性" 睡著了。
+console.log(AFa.sleep()) //一位叫做AFa的男性 睡著了。
 
 const Jeff = totalPackage(new Man("Jeff",10))
 console.log(Jeff.isTotalPackage)
 console.log(Jeff.charisma) // 90
-console.log(Jeff.throwParty()) //一位叫做Jeff的男性" 參加了派對。
+console.log(Jeff.throwParty()) //一位叫做Jeff的男性 參加了派對。
 ```
 這種模式著重在對已存在的類別新增行為或功能，是使用子類別的另一種替代方案。  
 
