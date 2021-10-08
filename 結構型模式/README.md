@@ -315,6 +315,52 @@ const reportProduct = registry.registerComplaint('Jane', 'product', 'faded color
 // 'Complaint No. 2 reported by Jane regarding faded color have been filed with the Products Complaint Department. Replacement/Repairment of the product as per terms and conditions will be carried out soon.'
 ```
 **這種模式用意在於提供統一、簡單的公開介面來使用，而去避免其組成的子系統及子類別複雜的使用屏障。**
+**與工廠模式(Factory Pattern)不同的是，Factory是在建構的時後決定物件，Facade是在使用某一個功能的時候，從物件裡面調用另一個物件的方法，對外面使用的人並不知道裡面怎麼做的)**
 
 上面為參考資料的範例，他使用了一個ComplaintRegistry類別且只對外了一個方法registerComplaint，  
 而在其中做了其他較複雜的處理，像是根據傳入不同參數實例化不同的物件(ProductComplaints或ServiceComplaints)、產生唯一ID及存入complaints等等。
+
+<br/>
+
+## 享元模式(Flyweight Pattern)
+example:
+```js
+// Flyweight class
+class Sandwich{
+    constructor(flavour,price){
+        this.flavour = flavour
+        this.price = price
+    }
+}
+
+class SandwichFactory{
+    constructor(){
+        this._sandwiches = []
+    }
+    createSandwich(flavour,price){
+        let sandwich = this.getSandwich(flavour)
+        if(sandwich){
+            return sandwich
+        }else{
+            const newSandwich = new Sandwich(flavour,price)
+            this._sandwiches.push(newSandwich)
+            return newSandwich
+        }
+    }
+    getSandwich(flavour){
+        return this._sandwiches.find(sandwich=>sandwich.flavour===flavour)
+    }
+}
+// usage
+const sandwichFactory = new SandwichFactory()
+const tunaEgg = sandwichFactory.createSandwich("Tuna and Egg",60)
+const eggTuna = sandwichFactory.createSandwich("Tuna and Egg",60)
+// 指向同一個參考
+console.log(tunaEgg === eggTuna) // true
+```
+這種模式是一種cache的機制，在呼叫方法的時候決定是否產生新的物件，若已產生過則不產生新的進而保留效能及記憶體。  
+享元模式可以應用在任何暫存的目的上，像是現今瀏覽器就使用了一個多變的享元模式來避免同樣的圖片被讀取兩次。
+
+範例中我們建立了一個享元類別Sandwich及工廠類別SandwichFactory來創建享元物件，為了保存記憶體，這些物件會在有相同的物件被實例化兩次的時候自動回收。這是一個簡單實作享元模式的範例。
+
+<br/>
